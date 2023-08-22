@@ -3,6 +3,8 @@ import { toast } from 'react-toastify';
 import customFetch from '../../utils/axios';
 import { logoutUser } from '../user/userSlice';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
+import { getAllJobs, hideLoading, showLoading } from '../allJobs/allJobsSlice';
+import { createJobThunk, deleteJobThunk, editJobThunk } from './jobThunk';
 
 const initialState = {
   isLoading: false,
@@ -17,26 +19,14 @@ const initialState = {
   editJobId: '',
 };
 
-export const createJob = createAsyncThunk(
-  'job/createJob',
-  async (job, thunkAPI) => {
-    try {
-      const resp = await customFetch.post('/jobs', job, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
-      thunkAPI.dispatch(clearValues());
-      return resp.data;
-    } catch (error) {
-      if (error.response.status === 401) {
-        thunkAPI.dispatch(logoutUser());
-        return thunkAPI.rejectWithValue('Unauthorized! Logging Out...');
-      }
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-);
+export const createJob = createAsyncThunk('job/createJob', createJobThunk);
+
+export const deleteJob = createAsyncThunk('job/deleteJob', deleteJobThunk);
+
+export const editJob = createAsyncThunk('job/editJob', editJobThunk);
+
+
+
 
 const jobSlice = createSlice({
   name: 'job',
@@ -52,6 +42,10 @@ const jobSlice = createSlice({
         jobLocation: getUserFromLocalStorage()?.location || '',
       };
     },
+
+    setEditJob: (state, { payload }) => {
+      return { ...state, isEditing: true, ...payload };
+    },
   },
 
   extraReducers: {
@@ -66,9 +60,21 @@ const jobSlice = createSlice({
       state.isLoading = false;
       toast.error(payload);
     },
+
+    [editJob.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [editJob.fulfilled]: (state) => {
+      state.isLoading = false;
+      toast.success('Job Modified...');
+    },
+    [editJob.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      toast.error(payload);
+    },
   }
 });
 
-export const { handleChange, clearValues } = jobSlice.actions;
+export const { handleChange, clearValues, setEditJob } = jobSlice.actions;
 
 export default jobSlice.reducer;
