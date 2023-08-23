@@ -6,7 +6,7 @@ const JobInfo = ({ icon, text }) => {
       <span className='icon'>{icon}</span>
       <span className='text'>{text}</span>
     </Wrapper>
-  );
+  )
 };
 
 export default JobInfo;
