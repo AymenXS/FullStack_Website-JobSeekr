@@ -1,12 +1,23 @@
-import Logo from '../components/Logo';
-import FormRow from '../components/FormRow'
-import Navbar from './Navbar';
-import SmallSidebar from './SmallSidebar';
 import BigSidebar from './BigSidebar';
-import Job from './Job';
-import JobsContainer from './JobsContainer';
-import SearchContainer from './SearchContainer';
 import ChartsContainer from './ChartsContainer';
+import FormRow from './FormRow';
+import FormRowSelect from './FormRowSelect';
+import JobsContainer from './JobsContainer';
+import Logo from './Logo';
+import Navbar from './Navbar';
+import SearchContainer from './SearchContainer';
+import SmallSidebar from './SmallSidebar';
 import StatsContainer from './StatsContainer';
 
-export { Logo, FormRow, BigSidebar, SmallSidebar, Navbar, Job, JobsContainer, SearchContainer, ChartsContainer, StatsContainer }
+export {
+  Logo,
+  FormRow,
+  Navbar,
+  SmallSidebar,
+  BigSidebar,
+  FormRowSelect,
+  JobsContainer,
+  SearchContainer,
+  StatsContainer,
+  ChartsContainer,
+};
