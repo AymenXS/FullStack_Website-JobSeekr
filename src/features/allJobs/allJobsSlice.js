@@ -24,7 +24,6 @@ const initialState = {
 export const getAllJobs = createAsyncThunk('allJobs/getJobs', getAllJobsThunk);
 export const showStats = createAsyncThunk('allJobs/showStats', showStatsThunk);
 
-
 const allJobsSlice = createSlice({
   name: 'allJobs',
   initialState,
@@ -88,6 +87,7 @@ export const {
   handleChange,
   clearFilters,
   changePage,
+  clearAllJobsState,
 } = allJobsSlice.actions;
 
 export default allJobsSlice.reducer;
