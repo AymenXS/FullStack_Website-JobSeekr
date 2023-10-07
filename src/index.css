@@ -69,6 +69,10 @@ html {
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
+.logo{
+  width: 250px;
+}
+
 body {
   background: var(--backgroundColor);
   font-family: var(--bodyFont);
