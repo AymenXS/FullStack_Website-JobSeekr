@@ -1,8 +1,7 @@
 import customFetch, { checkForUnauthorizedResponse } from '../../utils/axios';
 
-export const getAllJobsThunk = async (thunkAPI) => {
-  const { page, search, searchStatus, searchType, sort } =
-    thunkAPI.getState().allJobs;
+export const getAllJobsThunk = async (_, thunkAPI) => {
+  const { page, search, searchStatus, searchType, sort } = thunkAPI.getState().allJobs;
 
   let url = `/jobs?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
   if (search) {
@@ -10,7 +9,6 @@ export const getAllJobsThunk = async (thunkAPI) => {
   }
   try {
     const resp = await customFetch.get(url);
-
     return resp.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.msg);
