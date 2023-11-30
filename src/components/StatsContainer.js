@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 const StatsContainer = () => {
   const { stats } = useSelector((store) => store.allJobs);
+
   const defaultStats = [
     {
       title: 'pending applications',
@@ -37,5 +38,4 @@ const StatsContainer = () => {
     </Wrapper>
   );
 };
-
 export default StatsContainer;
